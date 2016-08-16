@@ -42,7 +42,7 @@ CLog::CLog() {
     try {
         std::vector<spdlog::sink_ptr> sinks;
         sinks.push_back(std::make_shared<spdlog::sinks::stdout_sink_mt>());
-        sinks.push_back(std::make_shared<spdlog::sinks::daily_file_sink_mt>("logfile", "txt", 0, 0));
+        sinks.push_back(std::make_shared<spdlog::sinks::daily_file_sink_mt>("logfile", "txt", 0, 0, true));
         auto combined_logger = std::make_shared<spdlog::logger>("log", begin(sinks), end(sinks));
         spdlog::register_logger(combined_logger);
 
