@@ -1,5 +1,5 @@
-#include "stdafx.h"
 #include "Log.h"
+#include <iostream>
 
 namespace spdlog
 {

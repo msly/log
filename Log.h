@@ -15,8 +15,8 @@ public:
 };
 
 extern CLog nono;
-//#define LOG_DEBUG (spd::get("log")->debug())
-//#define LOG_INFO (spd::get("log")->info())
-//#define LOG_ERROR (spd::get("log")->error())
+#define LOG_DEBUG (spd::get("log")->debug)
+#define LOG_INFO (spd::get("log")->info)
+#define LOG_ERROR (spd::get("log")->error)
 // new version
 // spd::get("log")->debug("{}", "hello");
