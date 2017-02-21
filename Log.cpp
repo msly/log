@@ -42,8 +42,9 @@ CLog::CLog() {
     try {
         std::vector<spdlog::sink_ptr> sinks;
         sinks.push_back(std::make_shared<spdlog::sinks::stdout_sink_mt>());
-        sinks.push_back(std::make_shared<spdlog::sinks::daily_file_sink_mt>("logfile", "txt", 0, 0, true));
+        sinks.push_back(std::make_shared<spdlog::sinks::daily_file_sink_mt>("logfile", "txt", 0, 0));
         auto combined_logger = std::make_shared<spdlog::logger>("log", begin(sinks), end(sinks));
+        combined_logger->flush_on(spdlog::level::err); // trigger flush if the log severity is error or higher
         spdlog::register_logger(combined_logger);
 
         //[%Y-%m-%d %H:%M:%S.%e] [%n] [%l] %v
