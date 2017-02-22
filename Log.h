@@ -15,6 +15,15 @@ public:
 };
 
 extern CLog nono;
+
+#ifdef LOG_DEBUG
+#undef LOG_DEBUG
+#endif
+
+#ifdef LOG_INFO
+#undef LOG_INFO
+#endif
+
 #define LOG_DEBUG (spd::get("log")->debug)
 #define LOG_INFO (spd::get("log")->info)
 #define LOG_ERROR (spd::get("log")->error)
