@@ -35,8 +35,8 @@ endif()
 add_definitions(CMAKE_CXX_FLAGS "-Wall")                # 开启所有警告
 
 # 设置为MT
-set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} /MT")
-set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /MTd")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -MT")
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -MTd")
 
 # 设置lib,bin输出目录
 # PROJECT_BINARY_DIR 是指运行cmake的目录 一般是新建一个build目录,然后 cmake ../, 这样目录比较干净
