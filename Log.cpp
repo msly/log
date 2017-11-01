@@ -1,6 +1,28 @@
 #include "Log.h"
 #include <iostream>
 
+#ifdef _WIN32
+#include <direct.h>
+#include <io.h>
+#define ACCESS _access
+#define MKDIR(a) _mkdir((a))
+#elif _LINUX
+#include <stdarg.h>
+#include <sys/stat.h>
+#define ACCESS access
+#define MKDIR(a) mkdir((a),0755)
+#endif
+
+static bool creat_dir(const char* path)
+{
+    if (ACCESS(path, 0) != 0)
+    {
+        int flag = MKDIR(path);
+        return (flag == 0);
+    }
+    return true;
+};
+
 namespace spdlog
 {
 	namespace sinks
@@ -40,9 +62,11 @@ namespace spdlog
 CLog::CLog() {
 
     try {
+        creat_dir("./logs/");
+
         std::vector<spdlog::sink_ptr> sinks;
         sinks.push_back(std::make_shared<spdlog::sinks::stdout_sink_mt>());
-        sinks.push_back(std::make_shared<spdlog::sinks::daily_file_sink_mt>("logfile", "txt", 0, 0));
+        sinks.push_back(std::make_shared<spdlog::sinks::daily_file_sink_mt>("logs/logfile", "txt", 0, 0));
         auto combined_logger = std::make_shared<spdlog::logger>("log", begin(sinks), end(sinks));
         combined_logger->flush_on(spdlog::level::debug); // trigger flush if the log severity is debug or higher
         spdlog::register_logger(combined_logger);
