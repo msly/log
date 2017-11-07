@@ -6,7 +6,7 @@
 #include <io.h>
 #define ACCESS _access
 #define MKDIR(a) _mkdir((a))
-#elif _LINUX
+#elif defined(__linux__) || defined(__linux)
 #include <stdarg.h>
 #include <sys/stat.h>
 #define ACCESS access
