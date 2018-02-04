@@ -66,7 +66,7 @@ CLog::CLog() {
 
         std::vector<spdlog::sink_ptr> sinks;
         sinks.push_back(std::make_shared<spdlog::sinks::stdout_sink_mt>());
-        sinks.push_back(std::make_shared<spdlog::sinks::daily_file_sink_mt>("logs/logfile", "txt", 0, 0));
+        sinks.push_back(std::make_shared<spdlog::sinks::daily_file_sink_mt>("logs/logfile.txt", 0, 0));
         auto combined_logger = std::make_shared<spdlog::logger>("log", begin(sinks), end(sinks));
         combined_logger->flush_on(spdlog::level::debug); // trigger flush if the log severity is debug or higher
         spdlog::register_logger(combined_logger);
