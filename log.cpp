@@ -66,14 +66,20 @@ CLog::CLog() {
 
         std::vector<spdlog::sink_ptr> sinks;
         sinks.push_back(std::make_shared<spdlog::sinks::stdout_sink_mt>());
-        sinks.push_back(std::make_shared<spdlog::sinks::daily_file_sink_mt>("logs/logfile.txt", 0, 0));
+        sinks.push_back(std::make_shared<spdlog::sinks::daily_file_sink_mt>("logs/log_info.txt", 0, 0));
+        sinks.push_back(std::make_shared<spdlog::sinks::daily_file_sink_mt>("logs/log_debug.txt", 0, 0));
+        
         auto combined_logger = std::make_shared<spdlog::logger>("log", begin(sinks), end(sinks));
-        combined_logger->flush_on(spdlog::level::debug); // trigger flush if the log severity is debug or higher
+        combined_logger->flush_on(spdlog::level::info); // trigger flush if the log severity is debug or higher
         spdlog::register_logger(combined_logger);
 
         //[%Y-%m-%d %H:%M:%S.%e] [%n] [%l] %v
         spd::set_pattern("[%H:%M:%S %e] [%L] [%t] %v");
 		spd::set_level(spd::level::debug);
+
+        sinks[0]->set_level(spd::level::info);
+        sinks[1]->set_level(spd::level::info);
+        sinks[2]->set_level(spd::level::debug);
     } catch (const spdlog::spdlog_ex& ex) {
         std::cout << "Log failed: " << ex.what() << std::endl;
     }
